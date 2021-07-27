@@ -1,0 +1,25 @@
+{
+  "name": "test_nodejs_final",
+  "version": "1.0.0",
+  "description": "Gender_detector, back-end, nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anhkhoale1/Gender_Detector.git"
+  },
+  "author": "Anh Khoa LE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anhkhoale1/Gender_Detector/issues"
+  },
+  "homepage": "https://github.com/anhkhoale1/Gender_Detector#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mysql": "github:mysqljs/mysql",
+    "nodemon": "^2.0.12"
+  }
+}

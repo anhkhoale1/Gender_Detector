@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Detector</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;            
+            align-items: center;
+        }
+        h2 {color: red;}
+        button {
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            padding: 10px 32px;
+            margin: 15px;
+            font-size: 16px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Quel est son genre ?</h2>
+        <p id="firstname">First Name is loading...</p>
+        <p id="score">Your score: </p>
+    
+        <div id="rates">
+            <input type="radio" id="male" name="gender" value="male" required checked/>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female" required/>
+            <label for="female">Female</label>
+            <input type="radio" id="mixed" name="gender" value="mixed" required />
+            <label for="mixed">Mixed</label>
+        </div>    
+        <button type="btn" class="btn btn-success" id="check" onclick="check()">
+            Check
+        </button> 
+    </div>
+</body>
+  
+<script>
+    let first_display = true;
+    let score = 10;
+
+    function check() {
+        let gender_user;
+        let radios = document.getElementsByName('gender');
+        for(let i = 0, length = radios.length; i < length; i++) {
+            if(radios[i].checked) {
+                gender_user = radios[i].value;
+                break;
+            }
+        }
+        console.log(gender_user);
+        changeName(gender_user);
+    }
+
+    async function changeName(gender_by_user) {
+        let rand_firstname = await fetch('http://localhost:3000/rand-firstname');
+        let rand_firstname_json = await rand_firstname.json();
+        document.getElementById('firstname').innerHTML = rand_firstname_json.first_name;
+
+        if(!first_display) {
+            let gender_api = await fetch('https://api.genderize.io/?name=' + rand_firstname_json.first_name);
+            let gender_api_json = await gender_api.json();
+            let resultat;
+            let mixed_value = 0.8;
+            if(gender_api_json.gender == null) {
+                resultat = 'mixed';
+            } else {
+                if(gender_api_json.probability > mixed_value) {
+                    resultat = gender_api_json.gender;
+                } else {
+                    resultat = 'mixed';
+                }
+            }
+            if(gender_by_user == resultat) {
+                score++;
+            } else {
+                --score;
+            }
+            if(score == 20) {
+                alert('YOU WON !!!');
+                window.location.href = 'http://localhost:3000/';
+            } else if(score == 0) {
+                alert("YOU LOSE!!!");
+                window.location.href = 'http://localhost:3000/';
+            }
+        }
+        document.getElementById('score').innerHTML = "Your score: " + score;
+        first_display = false;     
+    }
+    changeName();
+</script>
+</html>

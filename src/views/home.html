@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Detector</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;            
+            align-items: center;
+        }
+        h2 {
+            color: chocolate;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            padding: 10px 32px;
+            font-size: 16px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gender Detector</h2>
+        <p> Bienvenue au jeu de Gender Detector by firstnames !</p>
+        <p>Dans ce jeu, on vous donnerai un prénom. Avec votre prédiction, vous devrez choisir quel est le genre de la personne ayant ce prénom.</p>   
+        <p>Au début du jeu, vous aurez 10 points. Avec une bonne réponse, vous recevrez un point. Sinon, vous perdrez un point.</p>
+        <p>  En gagnant 20 points, vous gagnerez. Si votre score est égale à 0, vous perdrez.</p> 
+        <p>Si vous êtes prêt, cliquez sur Commencer !</p>  
+        <button id="play">Commencer !</button>
+    </div>
+</body>
+  
+<script>
+    document.getElementById("play").onclick = function () {
+        location.href = '/play';
+    };
+</script>
+
+</html>
